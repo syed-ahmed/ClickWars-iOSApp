@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -12,23 +13,15 @@
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="center" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
-                                <rect key="frame" x="225" y="384" width="200" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEv-lF-QPY">
+                                <rect key="frame" x="200" y="250" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="gQx-vo-x4k"/>
-                                    <constraint firstAttribute="height" constant="100" id="yZP-pu-6Xw"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEv-lF-QPY">
-                                <rect key="frame" x="143" y="48" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="GG7-IU-avx"/>
-                                    <constraint firstAttribute="height" constant="200" id="yuA-hs-zz7"/>
+                                    <constraint firstAttribute="height" constant="100" id="DeH-8t-TWT"/>
+                                    <constraint firstAttribute="width" constant="200" id="to7-md-OJ5"/>
                                 </constraints>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,24 +30,47 @@
                                     <action selector="btnStartTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wFQ-sX-2Aw"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
+                                <rect key="frame" x="200" y="480" width="200" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EbE-ZB-2AQ">
+                                <rect key="frame" x="21" y="9" width="563" height="454"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A0D-CJ-tE0">
+                                <rect key="frame" x="250" y="211" width="100" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="lg7-bT-XIY"/>
+                                    <constraint firstAttribute="width" constant="100" id="t1D-SI-F7t"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="XEv-lF-QPY" secondAttribute="bottom" constant="50" id="78o-7c-bIn"/>
-                            <constraint firstItem="XEv-lF-QPY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="114" id="9r3-G1-WyK"/>
-                            <constraint firstAttribute="trailing" secondItem="iro-fa-wYo" secondAttribute="trailing" constant="175" id="GxC-jY-ZFZ"/>
-                            <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="225" id="cgn-pr-i7A"/>
-                            <constraint firstItem="XEv-lF-QPY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="149" id="jVG-8I-fFQ"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="116" id="x5Z-FR-npj"/>
+                            <constraint firstItem="EbE-ZB-2AQ" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="2Vj-jE-qeK"/>
+                            <constraint firstItem="EbE-ZB-2AQ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="Kxf-Yk-7yg"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="480" id="MVe-UX-jvC"/>
+                            <constraint firstAttribute="bottom" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="20" symbolic="YES" id="Sq0-Do-fw6"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="trailing" secondItem="XEv-lF-QPY" secondAttribute="trailing" id="Tqg-SA-fvW"/>
+                            <constraint firstItem="A0D-CJ-tE0" firstAttribute="centerY" secondItem="EbE-ZB-2AQ" secondAttribute="centerY" id="bRc-z4-fcQ"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="XEv-lF-QPY" secondAttribute="leading" id="fJ3-6d-nLF"/>
+                            <constraint firstItem="A0D-CJ-tE0" firstAttribute="centerX" secondItem="XEv-lF-QPY" secondAttribute="centerX" id="qIh-rs-HJL"/>
+                            <constraint firstItem="A0D-CJ-tE0" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="191" id="qg2-Zz-Ua0"/>
+                            <constraint firstItem="A0D-CJ-tE0" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="zac-o1-lwD"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="EbE-ZB-2AQ" secondAttribute="bottom" constant="17" id="zxo-cT-sW0"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundImage" destination="EbE-ZB-2AQ" id="4VO-Jx-SmP"/>
                         <outlet property="btnStart" destination="XEv-lF-QPY" id="xAG-LJ-kk8"/>
+                        <outlet property="crosshair" destination="A0D-CJ-tE0" id="fCT-r1-MUc"/>
                         <outlet property="fbLoginView" destination="iro-fa-wYo" id="h1Z-uM-UCL"/>
+                        <outlet property="mainView" destination="kh9-bI-dsS" id="xSA-aC-ckQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="384" y="138"/>
         </scene>
     </scenes>
 </document>

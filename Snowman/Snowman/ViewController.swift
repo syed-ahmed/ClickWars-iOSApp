@@ -9,31 +9,190 @@
 import UIKit
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate { //adding FBLoginViewDelegate
-    
+    let imagePicker = UIImagePickerController()
     @IBOutlet var fbLoginView : FBLoginView! //creating the outlet
 
+    @IBOutlet var mainView: UIView!
+    @IBOutlet weak var crosshair: UIImageView!
     @IBOutlet weak var btnStart: UIButton!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    var array = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btnStart.hidden = true
+        self.backgroundImage.hidden = true
+        self.crosshair.hidden = true
         //initiating LoginView
         self.fbLoginView.delegate = self
         //initiating permission levels (could be modified for photo permis  sions etc.)
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
     }
+    func createOverlayView() -> UIView{
+        
+        //Initialize the overlay view
+        let overlay = UIView()
+        //Make it so that the overlay view is transparent
+        overlay.opaque = false
+        overlay.backgroundColor = UIColor.clearColor()
+        //Create an object representing the image of the targeting mechanism
+        let crossHair = UIImage(named: "crosshair.png")
+        let crossHairView = UIImageView(image: crossHair)
+        //Set the frame size of the crosshair view
+        crossHairView.frame = CGRectMake(0, 40, 320, 300)
+        //Center the crosshair
+        crossHairView.contentMode = UIViewContentMode.Center
+        //Add the crosshair to the overlay view
+        overlay.addSubview(crossHairView)
+        
+        return overlay
+    }
     
     @IBAction func btnStartTapped(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
+        //TESTING CODE
+        /*let url = NSURL(string: "http://imgur.com/bcdARJf.jpg")
+        var data = NSData(contentsOfURL: url!)
+        
+        
+        let internetFace = UIImage(data: data!)
+        //UIImageWriteToSavedPhotosAlbum(image: internetFace, completionTarget: nil, completionSelector: nil, contextInfo: nil)
+        UIImageWriteToSavedPhotosAlbum(internetFace, nil, nil, nil)
+        
+        
+        */
+        //END TEST CODE
+        
+        //let imagePicker = UIImagePickerController()
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
-            imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+            
+            let overlay = createOverlayView()
+            //Add the overlay view over the camera
+            imagePicker.cameraOverlayView = overlay
         }
         else{
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
         }
+        
+        //Start the camera with the overlay
         imagePicker.delegate = self
-        presentViewController(imagePicker, animated: true, completion: nil)
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+        
+        
         
     }
+    /*
+    Responsible for face detection.
+    @author Towhid Absar <mac9908@rit.edu>
+        */
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary) {
+        //picks the image from the picker controller.
+        let photo = info[UIImagePickerControllerOriginalImage] as UIImage
+        backgroundImage.image = photo
+        
+        //Setup the image.
+        var ciImage  = CIImage(image: backgroundImage.image)
+        //Setup the FaceDetector
+        var ciDetector = CIDetector(ofType:CIDetectorTypeFace
+            ,context:nil
+            ,options:[
+                CIDetectorAccuracy:CIDetectorAccuracyHigh,
+                CIDetectorSmile:true ]
+            
+        )
+        self.crosshair.image = UIImage(named: "crosshair.png")
+        self.crosshair.opaque = false
+        self.crosshair.hidden = false
+        
+        
+        var features = ciDetector.featuresInImage(ciImage)
+        let size = backgroundImage.image?.size
+        
+        UIGraphicsBeginImageContext(size!)
+        let img = backgroundImage.image
+        img?.drawInRect(CGRectMake(0,0,size!.width,size!.height))
+        var hitTarget = false
+        
+        for feature in features{
+            
+            //All the variables for detecting the
+            
+            
+            //context
+            var drawCtxt = UIGraphicsGetCurrentContext()
+            
+            //face
+            var faceRect = (feature as CIFaceFeature).bounds
+            
+            faceRect.origin.y = size!.height - faceRect.origin.y - faceRect.size.height
+            CGContextSetStrokeColorWithColor(drawCtxt, UIColor.redColor().CGColor)
+            CGContextStrokeRect(drawCtxt,faceRect)
+            
+            //mouth
+            if(feature.mouthPosition != nil){
+                var mouthRectY = size!.height - feature.mouthPosition.y
+                var mouthRect  = CGRectMake(feature.mouthPosition.x - 5,mouthRectY - 5,10,10)
+                CGContextSetStrokeColorWithColor(drawCtxt,UIColor.blueColor().CGColor)
+                CGContextStrokeRect(drawCtxt,mouthRect)
+            }
+            
+            //hige
+            /*var higeImg      = UIImage(named:"crosshair.png")
+            var mouseRectY = size!.height - feature.mouthPosition.y
+            var higeWidth  = faceRect.size.width * 4/5
+            var higeHeight = higeWidth * 0.3
+            var higeRect  = CGRectMake(feature.mouthPosition.x - higeWidth/2,mouseRectY - higeHeight/2,higeWidth,higeHeight)
+            CGContextDrawImage(drawCtxt,higeRect,higeImg!.CGImage)
+            */
+            //leftEye
+            if(feature.leftEyePosition != nil){
+                var leftEyeRectY = size!.height - feature.leftEyePosition.y
+                var leftEyeRect  = CGRectMake(feature.leftEyePosition.x - 5,leftEyeRectY - 5,10,10)
+                CGContextSetStrokeColorWithColor(drawCtxt, UIColor.blueColor().CGColor)
+                CGContextStrokeRect(drawCtxt,leftEyeRect)
+            }
+            
+            //rightEye
+            if(feature.rightEyePosition != nil){
+                var rightEyeRectY = size!.height - feature.rightEyePosition.y
+                var rightEyeRect  = CGRectMake(feature.rightEyePosition.x - 5,rightEyeRectY - 5,10,10)
+                CGContextSetStrokeColorWithColor(drawCtxt, UIColor.blueColor().CGColor)
+                CGContextStrokeRect(drawCtxt,rightEyeRect)
+            }
+            var faceLength1 = faceRect.origin.x
+            var faceLength2 = faceRect.origin.x + faceRect.size.width
+            var faceHeight1 = faceRect.origin.y
+            var faceHeight2 = faceRect.origin.y - faceRect.size.height
+            var crossLength1 = self.crosshair.bounds.origin.x
+            var crossLength2 = self.crosshair.bounds.size.width + self.crosshair.bounds.origin.x
+            var crossHeight1 = self.crosshair.bounds.origin.y
+            var crossHeight2 = self.crosshair.bounds.origin.y - self.crosshair.bounds.size.height
+            
+            if (faceLength1>crossLength1 && faceLength2<crossLength2 && faceHeight1<crossHeight1 && faceHeight2>crossHeight2)
+            {
+                hitTarget = true
+            }
+            
+            
+        }
+        var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        mainView.addSubview(self.crosshair)
+        mainView.addSubview(backgroundImage)
+        mainView.bringSubviewToFront(self.crosshair)
+        
+        if (hitTarget){
+        backgroundImage.image = drawedImage
+        backgroundImage.hidden = false
+        }
+        self.dismissViewControllerAnimated(true, completion: nil)
+    
+    }
+    
+    
+    
+    
+    
     
     //Facebook Delegate Methods
     
