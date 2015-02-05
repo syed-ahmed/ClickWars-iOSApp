@@ -36,6 +36,7 @@
 		A8F4210E1A83350800BDD132 /* SnowmanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowmanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8F421131A83350800BDD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8F421141A83350800BDD132 /* SnowmanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowmanTests.swift; sourceTree = "<group>"; };
+		A8F421241A8342BE00BDD132 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 			children = (
 				A8F420FE1A83350800BDD132 /* AppDelegate.swift */,
 				A8F421001A83350800BDD132 /* ViewController.swift */,
+				A8F421241A8342BE00BDD132 /* Bridge-Header.h */,
 				A8F421021A83350800BDD132 /* Main.storyboard */,
 				A8F421051A83350800BDD132 /* Images.xcassets */,
 				A8F421071A83350800BDD132 /* LaunchScreen.xib */,
