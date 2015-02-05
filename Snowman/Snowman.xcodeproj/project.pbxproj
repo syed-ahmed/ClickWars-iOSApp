@@ -13,7 +13,7 @@
 		A8F421061A83350800BDD132 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8F421051A83350800BDD132 /* Images.xcassets */; };
 		A8F421091A83350800BDD132 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A8F421071A83350800BDD132 /* LaunchScreen.xib */; };
 		A8F421151A83350800BDD132 /* SnowmanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F421141A83350800BDD132 /* SnowmanTests.swift */; };
-		A8F421261A834AEB00BDD132 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F421251A834AEB00BDD132 /* FacebookSDK.framework */; };
+		A8F421281A83559700BDD132 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8F421271A83559700BDD132 /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,7 @@
 		A8F421131A83350800BDD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8F421141A83350800BDD132 /* SnowmanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowmanTests.swift; sourceTree = "<group>"; };
 		A8F421241A8342BE00BDD132 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridge-Header.h"; sourceTree = "<group>"; };
-		A8F421251A834AEB00BDD132 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		A8F421271A83559700BDD132 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A8F421261A834AEB00BDD132 /* FacebookSDK.framework in Frameworks */,
+				A8F421281A83559700BDD132 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 		A8F421211A8337F300BDD132 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A8F421251A834AEB00BDD132 /* FacebookSDK.framework */,
+				A8F421271A83559700BDD132 /* FacebookSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -353,6 +353,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/challenge/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Snowman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -368,6 +369,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/challenge/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Snowman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
