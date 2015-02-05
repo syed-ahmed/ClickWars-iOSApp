@@ -16,14 +16,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
-                                <rect key="frame" x="200" y="250" width="200" height="100"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
+                                <rect key="frame" x="225" y="384" width="200" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="gQx-vo-x4k"/>
+                                    <constraint firstAttribute="height" constant="100" id="yZP-pu-6Xw"/>
+                                </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEv-lF-QPY">
+                                <rect key="frame" x="143" y="48" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="GG7-IU-avx"/>
+                                    <constraint firstAttribute="height" constant="200" id="yuA-hs-zz7"/>
+                                </constraints>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnStartTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wFQ-sX-2Aw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="XEv-lF-QPY" secondAttribute="bottom" constant="50" id="78o-7c-bIn"/>
+                            <constraint firstItem="XEv-lF-QPY" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="114" id="9r3-G1-WyK"/>
+                            <constraint firstAttribute="trailing" secondItem="iro-fa-wYo" secondAttribute="trailing" constant="175" id="GxC-jY-ZFZ"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="225" id="cgn-pr-i7A"/>
+                            <constraint firstItem="XEv-lF-QPY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="149" id="jVG-8I-fFQ"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="116" id="x5Z-FR-npj"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnStart" destination="XEv-lF-QPY" id="xAG-LJ-kk8"/>
                         <outlet property="fbLoginView" destination="iro-fa-wYo" id="h1Z-uM-UCL"/>
                     </connections>
                 </viewController>
