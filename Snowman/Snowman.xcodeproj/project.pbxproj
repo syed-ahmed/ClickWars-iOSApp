@@ -62,6 +62,7 @@
 				A8F420FB1A83350800BDD132 /* Snowman */,
 				A8F421111A83350800BDD132 /* SnowmanTests */,
 				A8F420FA1A83350800BDD132 /* Products */,
+				A8F421211A8337F300BDD132 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +111,13 @@
 				A8F421131A83350800BDD132 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A8F421211A8337F300BDD132 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +344,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/challenge/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = Snowman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -346,6 +358,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/challenge/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = Snowman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
