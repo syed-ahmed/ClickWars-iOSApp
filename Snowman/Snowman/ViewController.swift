@@ -18,7 +18,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         self.btnStart.hidden = true
         //initiating LoginView
         self.fbLoginView.delegate = self
-        //initiating permission levels (could be modified for photo permissions etc.)
+        //initiating permission levels (could be modified for photo permis  sions etc.)
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
     }
     
