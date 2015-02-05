@@ -15,8 +15,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FBLoginView.self //objects added
+        FBProfilePictureView.self //objects added
+        
         return true
+    }
+    
+    //function that takes to the facebook page or the facebook app and then
+    //lets the user log in and then return back to the home app
+    //taken from http://www.veasoftware.com/tutorials/2014/8/22/xcode-6-tutorial-ios-8-0-facebook-login-in-swift
+    //open source code
+    //testing now
+    //could be modified for our specific use
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: NSString?, annotation: AnyObject) -> Bool {
+        
+        var wasHandled:Bool = FBAppCall.handleOpenURL(url, sourceApplication: sourceApplication)
+        return wasHandled
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {
