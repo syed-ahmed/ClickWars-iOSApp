@@ -8,8 +8,18 @@
 
 import UIKit
 import AVFoundation
+import CoreLocation //iBeacon is a part of the CoreLocation frameworking. <syed ahmed>
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate { //adding FBLoginViewDelegate
+class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate, CLLocationManagerDelegate { //adding FBLoginViewDelegate
+                                                     //adding CLLocationManagerDelegate protocol for view 
+                                                     //controller to know which delegate methods it will
+                                                     //have available <syed ahmed>
+    
+    let locationManager = CLLocationManager() //creating an instance of a Core Location Manager <syed ahmed>
+                                              //to use core location framework. locationManager will handle
+                                              //all the details of looking for the beacons and reporting back
+    
+    
     let imagePicker = UIImagePickerController()
     @IBOutlet var fbLoginView : FBLoginView! //creating the outlet
 
