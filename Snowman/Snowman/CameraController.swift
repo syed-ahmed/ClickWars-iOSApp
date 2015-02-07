@@ -92,7 +92,8 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.view.layer.addSublayer(previewLayer)
         var layer1 : CALayer = CALayer()
-        layer1.contents = UIImage(named: "crosshair.png:")
+        var btnCapture : UIButton = UIButton()
+        layer1.contents = btnCapture
         previewLayer?.addSublayer(layer1)
         previewLayer?.frame = self.view.layer.frame
         

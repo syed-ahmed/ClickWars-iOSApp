@@ -13,6 +13,7 @@ class FaceDetection: UIView {
     
     var borderLayer : CAShapeLayer?
     var corners : [CGPoint]?
+    var btnCapture : UIButton?
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setMyView()
@@ -34,6 +35,12 @@ class FaceDetection: UIView {
         
         path.addLineToPoint(points.first!)
         borderLayer?.path = path.CGPath
+        let crossHair = UIImage(named: "crosshair.png")
+        let crossHairView = UIImageView(image: crossHair)
+        crossHairView.opaque = false
+        self.addSubview(crossHairView)
+        crossHairView.center = self.center
+        
     }
     
     func setMyView() {
@@ -42,6 +49,7 @@ class FaceDetection: UIView {
         borderLayer?.lineWidth = 2.0
         borderLayer?.fillColor = UIColor.clearColor().CGColor
         self.layer.addSublayer(borderLayer)
+        
     }
     
 }

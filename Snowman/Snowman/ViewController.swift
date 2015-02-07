@@ -51,7 +51,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             locationManager.requestAlwaysAuthorization(); //requesting "Always" authorization for location
         }
         
-        
     }
     /*
     func createOverlayView() -> UIView{
