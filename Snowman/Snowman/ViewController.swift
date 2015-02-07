@@ -85,6 +85,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.view.layer.addSublayer(previewLayer)
+        var layer1 : CALayer = CALayer()
+        layer1.contents = UIImage(named: "crosshair.png:")
+        previewLayer?.addSublayer(layer1)
         previewLayer?.frame = self.view.layer.frame
         captureSession.startRunning()
     }
