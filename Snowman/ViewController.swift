@@ -18,6 +18,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
                                                      //controller to know which delegate methods it will
                                                      //have available <syed ahmed>
    
+    let service = "swiftLogin"
+    
+    let userAccount = "swiftLoginUser"
+    
+    let key = "RandomKey"
     
     let region = CLBeaconRegion(proximityUUID: uuid, identifier: "Walker")//defining a region. The UUID I am looking for. Need to add server side programming to
     //collect UUID and Username upon registration
@@ -48,16 +53,80 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         var usrEntered = usernameTextField.text
         var pwdEntered = passwordTextField.text
         var emlEntered = emailTextField.text
-        if usrEntered != "" && pwdEntered != "" && emlEntered != "" {
-            // If not empty then yay, do something
-        } else {
+        if usrEntered != "" && pwdEntered != "" && emlEntered != "" {userSignup()
+        }else{
             self.messageLabel.text = "All Fields Required"
         }
+        
+        func userSignUp(){
+            var user = PFUser()
+            user.username = usrEntered
+            user.password = pwdEntered
+            user.email = emlEntered
+            
+            user.signUpInBackgroundWithBlock {
+                (succeeded: Bool!, error: NSError!) -> Void in
+                if error == nil {
+                    self.messageLabel.text = "User Signed Up";
+                } else {
+                    // Show the errorString somewhere and let the user try again.
+                }
+            }
+        }
+        
+        
     }
+    
+    @IBOutlet var loginInitialLabel: UILabel!
+    
+    @IBOutlet var logInSavePassLabel: UILabel!
+    
+    @IBOutlet var loginInUserTextField: UITextField!
+    
+    @IBOutlet var logInPassTextField: UITextField!
+    
+    @IBOutlet var logInSavePassSwitch: UISwitch!
+    
+    @IBAction func logInActionButton(sender: AnyObject) {
+        if loginInUserTextField.text != "" && logInPassTextField.text != "" {
+            
+        } else {
+            
+            self.loginInitialLabel.text = "All Fields Required"
+        }
+        
+        if logInSavePassSwitch.on {
+        } else {
+        }
+        PFUser.logInWithUsernameInBackground(loginInUserTextField.text, password:logInPassTextField.text) {
+            (user: PFUser!, error: NSError!) -> Void in
+            if user != nil {
+                
+                self.loginInitialLabel.text = "User Exists"
+            } else {
+                
+            }
+        }
+    }
+    
+    
     
     @IBOutlet var alternateSignIn: UIButton!
     
     var array = []
+    
+    override func viewDidAppear(animated: Bool)
+    let (dictionary, error) = Locksmith.loadDataForUserAccount(userAccount: key, inService: service, String: userAccount)
+        
+        if let dictionary = dictionary {
+            
+        } else {
+    s           performSegueWithIdentifier("logInViewSegue", sender: self)
+
+
+    
+        }
+    }
     
     
     override func viewDidLoad() {

@@ -8,7 +8,7 @@
         <!--Signin-->
         <scene sceneID="yba-WU-kP1">
             <objects>
-                <viewController title="Signin" id="nGx-AX-oyd" sceneMemberID="viewController">
+                <viewController title="Signin" id="nGx-AX-oyd" customClass="loginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Hc-Hj-fGT"/>
                         <viewControllerLayoutGuide type="bottom" id="faA-r9-vPE"/>
@@ -17,22 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13O-th-WMV">
-                                <rect key="frame" x="299" y="428" width="48" height="30"/>
-                                <state key="normal" title="Sign In">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="sxo-Hf-0ZQ" kind="modal" id="r5j-jL-X51"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kei-dp-jZe">
-                                <rect key="frame" x="169" y="358" width="306" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kei-dp-jZe" userLabel="loginPassTextField">
+                                <rect key="frame" x="169" y="276" width="306" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sz3-j7-6FO">
-                                <rect key="frame" x="169" y="487" width="313" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sz3-j7-6FO">
+                                <rect key="frame" x="170" y="487" width="313" height="30"/>
                                 <state key="normal" title="Don't have an account? Click here to sign up!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -40,8 +31,8 @@
                                     <segue destination="ixs-46-7Zc" kind="modal" id="kOJ-aI-zmO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snowman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYS-ic-aXi">
-                                <rect key="frame" x="201" y="184" width="198" height="92"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Snowman" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYS-ic-aXi" userLabel="loginInitialLabel">
+                                <rect key="frame" x="201" y="127" width="198" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="198" id="NEX-BE-7dp"/>
                                 </constraints>
@@ -49,29 +40,50 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vYa-Mb-SGh">
-                                <rect key="frame" x="170" y="279" width="306" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Username" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vYa-Mb-SGh" userLabel="loginUserTextField">
+                                <rect key="frame" x="170" y="220" width="306" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="306" id="smq-Xi-QDJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N9T-vK-dA5" userLabel="loginSavePassSwitch">
+                                <rect key="frame" x="170" y="328" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Save Password?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bn-rr-eB5" userLabel="loginSavePassLabel">
+                                <rect key="frame" x="236" y="333" width="129" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13O-th-WMV" userLabel="loginActionButton">
+                                <rect key="frame" x="261" y="405" width="92" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Sign In">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="sxo-Hf-0ZQ" kind="show" identifier="loginViewSegue" id="r5j-jL-X51"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="13O-th-WMV" firstAttribute="top" secondItem="Kei-dp-jZe" secondAttribute="bottom" constant="40" id="0yg-yl-Z0B"/>
+                            <constraint firstItem="13O-th-WMV" firstAttribute="top" secondItem="Kei-dp-jZe" secondAttribute="bottom" constant="83" id="0yg-yl-Z0B"/>
+                            <constraint firstItem="vYa-Mb-SGh" firstAttribute="leading" secondItem="eqi-cC-nuN" secondAttribute="leadingMargin" constant="10" id="4wP-Sx-7Vn"/>
                             <constraint firstItem="vYa-Mb-SGh" firstAttribute="top" secondItem="eqi-cC-nuN" secondAttribute="top" constant="284" id="5Zh-1F-RWh"/>
-                            <constraint firstItem="Kei-dp-jZe" firstAttribute="trailing" secondItem="vYa-Mb-SGh" secondAttribute="trailing" id="659-sl-dQP"/>
+                            <constraint firstItem="Kei-dp-jZe" firstAttribute="trailing" secondItem="vYa-Mb-SGh" secondAttribute="trailing" constant="-1" id="659-sl-dQP"/>
                             <constraint firstItem="aYS-ic-aXi" firstAttribute="top" secondItem="4Hc-Hj-fGT" secondAttribute="bottom" constant="120" id="8sL-Fn-vBb"/>
                             <constraint firstItem="sz3-j7-6FO" firstAttribute="top" secondItem="13O-th-WMV" secondAttribute="bottom" constant="28" id="B6e-ae-Qe5"/>
-                            <constraint firstItem="sz3-j7-6FO" firstAttribute="leading" secondItem="Kei-dp-jZe" secondAttribute="leading" id="Lwn-u9-9Af"/>
+                            <constraint firstItem="sz3-j7-6FO" firstAttribute="leading" secondItem="Kei-dp-jZe" secondAttribute="leading" constant="1" id="Lwn-u9-9Af"/>
+                            <constraint firstItem="vYa-Mb-SGh" firstAttribute="top" secondItem="aYS-ic-aXi" secondAttribute="bottom" constant="10" id="SMZ-4h-s7I"/>
                             <constraint firstItem="vYa-Mb-SGh" firstAttribute="top" secondItem="aYS-ic-aXi" secondAttribute="bottom" constant="8" symbolic="YES" id="Saq-yj-MPs"/>
                             <constraint firstAttribute="trailing" secondItem="13O-th-WMV" secondAttribute="trailing" constant="252" id="WZj-jV-3Qb"/>
-                            <constraint firstItem="Kei-dp-jZe" firstAttribute="top" secondItem="vYa-Mb-SGh" secondAttribute="bottom" constant="44" id="dFF-CU-pfX"/>
+                            <constraint firstItem="Kei-dp-jZe" firstAttribute="top" secondItem="vYa-Mb-SGh" secondAttribute="bottom" constant="43" id="dFF-CU-pfX"/>
                             <constraint firstItem="vYa-Mb-SGh" firstAttribute="leading" secondItem="eqi-cC-nuN" secondAttribute="leading" constant="170" id="qXL-HN-G1f"/>
                             <constraint firstItem="sz3-j7-6FO" firstAttribute="centerX" secondItem="aYS-ic-aXi" secondAttribute="centerX" constant="26.5" id="tex-dI-FRw"/>
-                            <constraint firstItem="Kei-dp-jZe" firstAttribute="leading" secondItem="vYa-Mb-SGh" secondAttribute="leading" id="wBd-i2-nmU"/>
+                            <constraint firstItem="Kei-dp-jZe" firstAttribute="leading" secondItem="vYa-Mb-SGh" secondAttribute="leading" constant="-1" id="wBd-i2-nmU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sui-fV-Hh3"/>
