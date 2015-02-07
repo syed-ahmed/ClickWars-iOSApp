@@ -11,14 +11,16 @@ import AVFoundation
 import UIKit
 
 
-class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVCaptureMetadataOutputObjectsDelegate{
     
     
     @IBOutlet var cameraView: UIView!
     
-    let captureSession = AVCaptureSession()
+    var captureSession = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
     var captureDevice : AVCaptureDevice?
+    var  identifiedBorder : FaceDetection?
+    var timer : NSTimer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
                 }
             }
         }
+        
         
     }
     
@@ -93,7 +96,53 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         layer1.contents = UIImage(named: "crosshair.png:")
         previewLayer?.addSublayer(layer1)
         previewLayer?.frame = self.view.layer.frame
+        
+        identifiedBorder = FaceDetection(frame: self.view.bounds)
+        identifiedBorder?.backgroundColor = UIColor.clearColor()
+        identifiedBorder?.hidden = true;
+        self.view.addSubview(identifiedBorder!)
+        let output = AVCaptureMetadataOutput()
+        captureSession.addOutput(output)
+        output.metadataObjectTypes = output.availableMetadataObjectTypes
+        println(output.availableMetadataObjectTypes)
+        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         captureSession.startRunning()
+    }
+    
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        for data in metadataObjects {
+            let metaData = data as AVMetadataObject
+            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as? AVMetadataMachineReadableCodeObject
+            if let unwraped = transformed {
+                identifiedBorder?.frame = unwraped.bounds
+                identifiedBorder?.hidden = false
+                let identifiedCorners = self.translatePoints(unwraped.corners, fromView: self.view, toView: self.identifiedBorder!)
+                identifiedBorder?.drawBorder(identifiedCorners)
+                self.identifiedBorder?.hidden = false
+                self.startTimer()
+                
+            }
+        }
+    }
+    func startTimer() {
+        if timer?.valid != true {
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: "removeBorder", userInfo: nil, repeats: false)
+        } else {
+            timer?.invalidate()
+        }
+    }
+    
+    func translatePoints(points : [AnyObject], fromView : UIView, toView: UIView) -> [CGPoint] {
+        var translatedPoints : [CGPoint] = []
+        for point in points {
+            var dict = point as NSDictionary
+            let x = CGFloat((dict.objectForKey("X") as NSNumber).floatValue)
+            let y = CGFloat((dict.objectForKey("Y") as NSNumber).floatValue)
+            let curr = CGPointMake(x, y)
+            let currFinal = fromView.convertPoint(curr, toView: toView)
+            translatedPoints.append(currFinal)
+        }
+        return translatedPoints
     }
     
     

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A8BE15FE1A83772200561A2E /* crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BE15FD1A83772200561A2E /* crosshair.png */; };
 		A8BE16001A85D8CD00561A2E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE15FF1A85D8CD00561A2E /* CameraController.swift */; };
+		A8BE16021A85F73E00561A2E /* FaceDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE16011A85F73E00561A2E /* FaceDetection.swift */; };
 		A8F420FF1A83350800BDD132 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F420FE1A83350800BDD132 /* AppDelegate.swift */; };
 		A8F421011A83350800BDD132 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F421001A83350800BDD132 /* ViewController.swift */; };
 		A8F421041A83350800BDD132 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8F421021A83350800BDD132 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		A8BE15FD1A83772200561A2E /* crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crosshair.png; path = ../crosshair.png; sourceTree = "<group>"; };
 		A8BE15FF1A85D8CD00561A2E /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		A8BE16011A85F73E00561A2E /* FaceDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetection.swift; sourceTree = "<group>"; };
 		A8F420F91A83350800BDD132 /* Snowman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snowman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8F420FD1A83350800BDD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8F420FE1A83350800BDD132 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				A8F421241A8342BE00BDD132 /* Bridge-Header.h */,
 				A8F421021A83350800BDD132 /* Main.storyboard */,
 				A8BE15FF1A85D8CD00561A2E /* CameraController.swift */,
+				A8BE16011A85F73E00561A2E /* FaceDetection.swift */,
 				A8F421051A83350800BDD132 /* Images.xcassets */,
 				A8F421071A83350800BDD132 /* LaunchScreen.xib */,
 				A8F420FC1A83350800BDD132 /* Supporting Files */,
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8BE16021A85F73E00561A2E /* FaceDetection.swift in Sources */,
 				A8BE16001A85D8CD00561A2E /* CameraController.swift in Sources */,
 				A8F421011A83350800BDD132 /* ViewController.swift in Sources */,
 				A8F420FF1A83350800BDD132 /* AppDelegate.swift in Sources */,
