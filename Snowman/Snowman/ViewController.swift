@@ -46,6 +46,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
         
+        locationManager.delegate = self; //with this locationManager will know that View Controller should be its
+                                         //delegate (and messages would be delivered in the view controller
+        
+        
     }
     
     
