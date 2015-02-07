@@ -99,10 +99,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             session.sessionPreset = AVCaptureSessionPresetPhoto
         }
         //Select a video device make an input
-        var device : AVCaptureDevice? = nil
+        var device : AVCaptureDevice?
         var desiredPosition = AVCaptureDevicePosition.Back
         //find the back facing camera
-        var d = AVCaptureDevice()
+        var d : AVCaptureDevice
         var devicesWithMediaType = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
         // find the front facing camera
         for d in devicesWithMediaType{
