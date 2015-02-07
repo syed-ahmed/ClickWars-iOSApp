@@ -132,13 +132,16 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
     
     func translatePoints(points : CGRect, fromView : UIView, toView: UIView) -> [CGPoint] {
         var translatedPoints : [CGPoint] = []
-        var curr = CGPointMake(points.maxX, points.maxY)
-        var currFinal = fromView.convertPoint(curr, toView: toView)
-        translatedPoints.append(currFinal)
-
-        curr = CGPointMake(points.minX, points.minY)
-        currFinal = fromView.convertPoint(curr, toView: toView)
-        translatedPoints.append(currFinal)
+        let corner1 = CGPointMake(points.minX, points.maxY)
+        
+        translatedPoints.append(corner1)
+        let corner2 = CGPointMake(points.maxX, points.maxY)
+        
+        translatedPoints.append(corner2)
+        let corner3 = CGPointMake(points.maxX, points.minY)
+        translatedPoints.append(corner3)
+        let corner4 = CGPointMake(points.minX, points.minY)
+        translatedPoints.append(corner4)
         
         /*for point in points {
             var dict = point as NSDictionary
