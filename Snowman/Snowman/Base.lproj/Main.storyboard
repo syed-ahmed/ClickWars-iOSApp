@@ -17,10 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufo-Be-bKK">
-                                <rect key="frame" x="0.0" y="85" width="200" height="112"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
+                                <rect key="frame" x="16" y="318" width="200" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufo-Be-bKK">
+                                <rect key="frame" x="200" y="91" width="200" height="112"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="112" id="xhH-kw-tb0"/>
+                                    <constraint firstAttribute="height" constant="112" id="1bN-sR-w29"/>
+                                    <constraint firstAttribute="width" constant="200" id="iEt-zl-kUa"/>
                                 </constraints>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,18 +34,15 @@
                                     <segue destination="bKY-f2-878" kind="show" id="oRO-me-LZA"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
-                                <rect key="frame" x="16" y="318" width="200" height="68"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="iro-fa-wYo" secondAttribute="trailing" constant="384" id="H1S-pR-gk6"/>
                             <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="318" id="LZ7-v7-761"/>
+                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="27" id="R37-gH-4H8"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="214" id="TYp-CH-qFz"/>
                             <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="V73-ZA-4qt"/>
-                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="92" id="sYW-a0-wtg"/>
+                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="x2U-WG-4nM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WYz-un-geK"/>
