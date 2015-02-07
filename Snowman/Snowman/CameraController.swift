@@ -155,5 +155,11 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         return translatedPoints
     }
     
+    func removeBorder() {
+        /* Remove the identified border */
+        self.identifiedBorder?.hidden = true
+    }
+
+    
     
 }
