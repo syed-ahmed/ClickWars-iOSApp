@@ -91,8 +91,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         var session : AVCaptureSession = AVCaptureSession()
         var mainView : UIView = UIView()
         var cameraSession = AVCaptureVideoPreviewLayer(session: session)
-        var currentDevice = UIDevice()
-        if currentDevice.userInterfaceIdiom == UIUserInterfaceIdiom.Phone{
+        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Phone{
             session.sessionPreset = AVCaptureSessionPreset640x480
         }
         else
