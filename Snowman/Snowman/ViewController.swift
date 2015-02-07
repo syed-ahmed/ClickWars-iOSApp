@@ -71,7 +71,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         return overlay
     }
-    
+    /*
     @IBAction func btnStartTapped(sender: AnyObject) {
         //TESTING CODE
         /*let url = NSURL(string: "http://imgur.com/bcdARJf.jpg")
@@ -106,7 +106,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         
     }
-    
+    */
     /*New method using AVCaptureSession*/
     func openCamera(){
         var error : NSError?
