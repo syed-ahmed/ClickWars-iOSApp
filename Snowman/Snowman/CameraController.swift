@@ -110,7 +110,7 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         for data in metadataObjects {
             let metaData = data as AVMetadataObject
-            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as AVMetadataMachineReadableCodeObject?
+            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as AVMetadataFaceObject?
             if let unwrapped = transformed {
                 identifiedBorder?.frame = unwrapped.bounds
                 identifiedBorder?.hidden = false
