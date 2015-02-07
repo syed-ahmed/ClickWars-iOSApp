@@ -8,18 +8,13 @@
 
 import UIKit
 import AVFoundation
+import Foundation
 import CoreLocation //iBeacon is a part of the CoreLocation frameworking. <syed ahmed>
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate, CLLocationManagerDelegate { //adding FBLoginViewDelegate
                                                      //adding CLLocationManagerDelegate protocol for view 
                                                      //controller to know which delegate methods it will
                                                      //have available <syed ahmed>
-    
-    let locationManager = CLLocationManager() //creating an instance of a Core Location Manager <syed ahmed>
-                                              //to use core location framework. locationManager will handle
-                                              //all the details of looking for the beacons and reporting back
-    
-    
     let imagePicker = UIImagePickerController()
     //@IBOutlet var fbLoginView : FBLoginView! //creating the outlet
     
@@ -44,6 +39,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         //captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
         
+        
+        let locationManager = CLLocationManager() //creating an instance of a Core Location Manager <syed ahmed>
+        //to use core location framework. locationManager will handle
+        //all the details of looking for the beacons and reporting back
+        
+        
         locationManager.delegate = self; //with this locationManager will know that View Controller should be its
                                          //delegate (and messages would be delivered in the view controller
         if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.Authorized) { //wrapping to ask for authorization if user turns location services off
@@ -52,7 +53,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         
     }
-    
     /*
     func createOverlayView() -> UIView{
         
