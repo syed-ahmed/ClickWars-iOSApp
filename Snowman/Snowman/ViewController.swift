@@ -46,9 +46,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         locationManager.delegate = self; //with this locationManager will know that View Controller should be its
                                          //delegate (and messages would be delivered in the view controller
         if (CLLocationManager.authorizationStatus() !=
-            CLAuthorizationStatus.Authorized) { //wrapping to ask for authorization if user turns location services off
-            locationManager.requestAlwaysAuthorization(); //requesting "Always" authorization for location
+            CLAuthorizationStatus.AuthorizedWhenInUse) { //wrapping to ask for authorization if user turns location services off
+            locationManager.requestWhenInUseAuthorization(); //requesting "Always" authorization for location
         }
+        
         
     }
     
