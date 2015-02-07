@@ -17,6 +17,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     @IBOutlet weak var crosshair: UIImageView!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var backgroundImage: UIImageView!
+    let captureSession = AVCaptureSession()
+    var previewLayer : AVCaptureVideoPreviewLayer?
+    var captureDevice : AVCaptureDevice?
     
     var array = []
     override func viewDidLoad() {
@@ -28,6 +31,77 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         self.fbLoginView.delegate = self
         //initiating permission levels (could be modified for photo permis  sions etc.)
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
+        
+        // Loop through all the capture devices on this phone
+        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        
+        let devices = AVCaptureDevice.devices()
+        
+        // Loop through all the capture devices on this phone
+        for device in devices {
+            // Make sure this particular device supports video
+            if (device.hasMediaType(AVMediaTypeVideo)) {
+                // Finally check the position and confirm we've got the back camera
+                if(device.position == AVCaptureDevicePosition.Back) {
+                    captureDevice = device as? AVCaptureDevice
+                    if captureDevice != nil {
+                        println("Capture device found")
+                        beginSession()
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func focusTo(value : Float) {
+        if let device = captureDevice {
+            if(device.lockForConfiguration(nil)) {
+                device.setFocusModeLockedWithLensPosition(value, completionHandler: { (time) -> Void in
+                    //
+                })
+                device.unlockForConfiguration()
+            }
+        }
+    }
+    
+    let screenWidth = UIScreen.mainScreen().bounds.size.width
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        var anyTouch = touches.anyObject() as UITouch
+        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
+        focusTo(Float(touchPercent))
+    }
+    
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
+        var anyTouch = touches.anyObject() as UITouch
+        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
+        focusTo(Float(touchPercent))
+    }
+    
+    func configureDevice() {
+        if let device = captureDevice {
+            device.lockForConfiguration(nil)
+            device.focusMode = .Locked
+            device.unlockForConfiguration()
+        }
+        
+    }
+    
+    func beginSession() {
+        
+        configureDevice()
+        
+        var err : NSError? = nil
+        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
+        
+        if err != nil {
+            println("error: \(err?.localizedDescription)")
+        }
+        
+        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.view.layer.addSublayer(previewLayer)
+        previewLayer?.frame = self.view.layer.frame
+        captureSession.startRunning()
     }
     func createOverlayView() -> UIView{
         
@@ -63,7 +137,6 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         */
         //END TEST CODE
         
-        openCamera()
         //let imagePicker = UIImagePickerController()
         /*
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
@@ -131,7 +204,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             rootLayer.addSublayer(cameraSession)
             session.startRunning()
             mainView.layer.addSublayer(cameraSession)
-    
+            
         }
         
         if (error != nil){
