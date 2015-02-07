@@ -24,13 +24,14 @@ class FaceDetection: UIView {
     
     func drawBorder(points : [CGPoint]) {
         self.corners = points
+        //let path = UIBezierPath(rect: points)
         let path = UIBezierPath()
-        
         println(points)
         path.moveToPoint(points.first!)
         for (var i = 1; i < points.count; i++) {
             path.addLineToPoint(points[i])
         }
+        
         path.addLineToPoint(points.first!)
         borderLayer?.path = path.CGPath
     }

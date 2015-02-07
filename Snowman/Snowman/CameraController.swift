@@ -134,16 +134,21 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         var translatedPoints : [CGPoint] = []
         
         let corner4 = CGPointMake(points.minX, points.minY)
-        translatedPoints.append(corner4)
+        let corner4a = fromView.convertPoint(corner4, toView: toView)
+        translatedPoints.append(corner4a)
         let corner3 = CGPointMake(points.maxX, points.minY)
-        translatedPoints.append(corner3)
+        
+        let corner3a = fromView.convertPoint(corner3, toView: toView)
+        translatedPoints.append(corner3a)
         let corner2 = CGPointMake(points.maxX, points.maxY)
         
-        translatedPoints.append(corner2)
+        let corner2a = fromView.convertPoint(corner2, toView: toView)
+        translatedPoints.append(corner2a)
         
         let corner1 = CGPointMake(points.minX, points.maxY)
         
-        translatedPoints.append(corner1)
+        let corner1a = fromView.convertPoint(corner1, toView: toView)
+        translatedPoints.append(corner1a)
         /*for point in points {
             var dict = point as NSDictionary
             let x = CGFloat((dict.objectForKey("X") as NSNumber).floatValue)
