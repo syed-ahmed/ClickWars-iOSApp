@@ -135,10 +135,11 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         var curr = CGPointMake(points.maxX, points.maxY)
         var currFinal = fromView.convertPoint(curr, toView: toView)
         translatedPoints.append(currFinal)
-        
-        curr = CGPointMake(points.minX, points.minX)
+
+        curr = CGPointMake(points.minX, points.minY)
         currFinal = fromView.convertPoint(curr, toView: toView)
         translatedPoints.append(currFinal)
+        
         /*for point in points {
             var dict = point as NSDictionary
             let x = CGFloat((dict.objectForKey("X") as NSNumber).floatValue)
