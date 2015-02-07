@@ -21,19 +21,20 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     let imagePicker = UIImagePickerController()
-    @IBOutlet var fbLoginView : FBLoginView! //creating the outlet
+    //@IBOutlet var fbLoginView : FBLoginView! //creating the outlet
     
+    @IBOutlet weak var fbLoginView: FBLoginView!
     @IBOutlet var mainView: UIView!
-    @IBOutlet weak var crosshair: UIImageView!
-    @IBOutlet weak var btnStart: UIButton!
-    @IBOutlet weak var backgroundImage: UIImageView!
+    //@IBOutlet weak var crosshair: UIImageView!
+    //@IBOutlet weak var backgroundImage: UIImageView!
     
+    @IBOutlet weak var btnStart: UIButton!
     var array = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btnStart.hidden = true
-        self.backgroundImage.hidden = true
-        self.crosshair.hidden = true
+        //self.backgroundImage.hidden = true
+        //self.crosshair.hidden = true
         //initiating LoginView
         self.fbLoginView.delegate = self
         //initiating permission levels (could be modified for photo permis  sions etc.)
@@ -53,7 +54,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
     }
     
-    
+    /*
     func createOverlayView() -> UIView{
         
         //Initialize the overlay view
@@ -73,6 +74,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         return overlay
     }
+*/
     /*
     @IBAction func btnStartTapped(sender: AnyObject) {
         //TESTING CODE
@@ -110,6 +112,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     */
     /*New method using AVCaptureSession*/
+    /*
     func openCamera(){
         var error : NSError?
         var session : AVCaptureSession = AVCaptureSession()
@@ -163,11 +166,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             alertView.show()
         }
     }
-        
+     */
     /*
     Responsible for face detection.
     @author Towhid Absar <mac9908@rit.edu>
         */
+    /*
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: NSDictionary) {
         //picks the image from the picker controller.
         let photo = info[UIImagePickerControllerOriginalImage] as UIImage
@@ -274,7 +278,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     }
     
-    
+    */
     
     
     
