@@ -27,7 +27,6 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         // Loop through all the capture devices on this phone
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         let devices = AVCaptureDevice.devices()
-        
         // Loop through all the capture devices on this phone
         for device in devices {
             // Make sure this particular device supports video
@@ -108,15 +107,14 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         captureSession.startRunning()
     }
-    
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         for data in metadataObjects {
             let metaData = data as AVMetadataObject
-            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as? AVMetadataMachineReadableCodeObject
-            if let unwraped = transformed {
-                identifiedBorder?.frame = unwraped.bounds
+            let transformed = previewLayer?.transformedMetadataObjectForMetadataObject(metaData) as AVMetadataMachineReadableCodeObject?
+            if let unwrapped = transformed {
+                identifiedBorder?.frame = unwrapped.bounds
                 identifiedBorder?.hidden = false
-                let identifiedCorners = self.translatePoints(unwraped.corners, fromView: self.view, toView: self.identifiedBorder!)
+                let identifiedCorners = self.translatePoints(unwrapped.bounds, fromView: self.view, toView: self.identifiedBorder!)
                 identifiedBorder?.drawBorder(identifiedCorners)
                 self.identifiedBorder?.hidden = false
                 self.startTimer()
@@ -132,16 +130,23 @@ class CameraController : UIViewController,UIImagePickerControllerDelegate,UINavi
         }
     }
     
-    func translatePoints(points : [AnyObject], fromView : UIView, toView: UIView) -> [CGPoint] {
+    func translatePoints(points : CGRect, fromView : UIView, toView: UIView) -> [CGPoint] {
         var translatedPoints : [CGPoint] = []
-        for point in points {
+        var curr = CGPointMake(points.maxX, points.maxY)
+        var currFinal = fromView.convertPoint(curr, toView: toView)
+        translatedPoints.append(currFinal)
+        
+        curr = CGPointMake(points.minX, points.minX)
+        currFinal = fromView.convertPoint(curr, toView: toView)
+        translatedPoints.append(currFinal)
+        /*for point in points {
             var dict = point as NSDictionary
             let x = CGFloat((dict.objectForKey("X") as NSNumber).floatValue)
             let y = CGFloat((dict.objectForKey("Y") as NSNumber).floatValue)
             let curr = CGPointMake(x, y)
             let currFinal = fromView.convertPoint(curr, toView: toView)
             translatedPoints.append(currFinal)
-        }
+        }*/
         return translatedPoints
     }
     
