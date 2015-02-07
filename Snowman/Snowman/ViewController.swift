@@ -125,11 +125,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
             cameraSession = AVCaptureVideoPreviewLayer(session: session)
             cameraSession.backgroundColor = UIColor.blackColor().CGColor
             cameraSession.videoGravity = AVLayerVideoGravityResizeAspect
-            var rootLayer : CALayer =  backgroundImage.layer
+            var rootLayer : CALayer =  mainView.layer
             rootLayer.masksToBounds = true
             rootLayer.frame = rootLayer.bounds
             rootLayer.addSublayer(cameraSession)
             session.startRunning()
+            mainView.layer.addSublayer(cameraSession)
     
         }
         
