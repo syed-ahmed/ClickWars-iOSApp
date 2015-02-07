@@ -12,14 +12,11 @@ import AVFoundation
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate { //adding FBLoginViewDelegate
     let imagePicker = UIImagePickerController()
     @IBOutlet var fbLoginView : FBLoginView! //creating the outlet
-
+    
     @IBOutlet var mainView: UIView!
     @IBOutlet weak var crosshair: UIImageView!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var backgroundImage: UIImageView!
-    let captureSession = AVCaptureSession()
-    var previewLayer : AVCaptureVideoPreviewLayer?
-    var captureDevice : AVCaptureDevice?
     
     var array = []
     override func viewDidLoad() {
@@ -33,64 +30,12 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
         
         // Loop through all the capture devices on this phone
-        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        //captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
         
     }
     
     
-    func focusTo(value : Float) {
-        if let device = captureDevice {
-            if(device.lockForConfiguration(nil)) {
-                device.setFocusModeLockedWithLensPosition(value, completionHandler: { (time) -> Void in
-                    //
-                })
-                device.unlockForConfiguration()
-            }
-        }
-    }
-    
-    let screenWidth = UIScreen.mainScreen().bounds.size.width
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        var anyTouch = touches.anyObject() as UITouch
-        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
-        focusTo(Float(touchPercent))
-    }
-    
-    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-        var anyTouch = touches.anyObject() as UITouch
-        var touchPercent = anyTouch.locationInView(self.view).x / screenWidth
-        focusTo(Float(touchPercent))
-    }
-    
-    func configureDevice() {
-        if let device = captureDevice {
-            device.lockForConfiguration(nil)
-            device.focusMode = .Locked
-            device.unlockForConfiguration()
-        }
-        
-    }
-    
-    func beginSession() {
-        
-        configureDevice()
-        
-        var err : NSError? = nil
-        captureSession.addInput(AVCaptureDeviceInput(device: captureDevice, error: &err))
-        
-        if err != nil {
-            println("error: \(err?.localizedDescription)")
-        }
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.view.layer.addSublayer(previewLayer)
-        var layer1 : CALayer = CALayer()
-        layer1.contents = UIImage(named: "crosshair.png:")
-        previewLayer?.addSublayer(layer1)
-        previewLayer?.frame = self.view.layer.frame
-        captureSession.startRunning()
-    }
     func createOverlayView() -> UIView{
         
         //Initialize the overlay view
@@ -124,22 +69,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         
         */
         //END TEST CODE
-        let devices = AVCaptureDevice.devices()
         
-        // Loop through all the capture devices on this phone
-        for device in devices {
-            // Make sure this particular device supports video
-            if (device.hasMediaType(AVMediaTypeVideo)) {
-                // Finally check the position and confirm we've got the back camera
-                if(device.position == AVCaptureDevicePosition.Back) {
-                    captureDevice = device as? AVCaptureDevice
-                    if captureDevice != nil {
-                        println("Capture device found")
-                        beginSession()
-                    }
-                }
-            }
-        }
         //let imagePicker = UIImagePickerController()
         /*
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
