@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, FBLoginViewDelegate { //adding FBLoginViewDelegate
     let imagePicker = UIImagePickerController()
@@ -16,6 +17,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     @IBOutlet weak var crosshair: UIImageView!
     @IBOutlet weak var btnStart: UIButton!
     @IBOutlet weak var backgroundImage: UIImageView!
+    
     var array = []
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +63,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         */
         //END TEST CODE
         
+        openCamera()
         //let imagePicker = UIImagePickerController()
+        /*
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
             self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
             
@@ -76,10 +80,66 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         //Start the camera with the overlay
         imagePicker.delegate = self
         self.presentViewController(imagePicker, animated: true, completion: nil)
-        
+        */
         
         
     }
+    
+    /*New method using AVCaptureSession*/
+    func openCamera(){
+        var error : NSError?
+        var session : AVCaptureSession = AVCaptureSession()
+        var mainView : UIView = UIView()
+        var cameraSession = AVCaptureVideoPreviewLayer(session: session)
+        var currentDevice = UIDevice()
+        if currentDevice.userInterfaceIdiom == UIUserInterfaceIdiom.Phone{
+            session.sessionPreset = AVCaptureSessionPreset640x480
+        }
+        else
+        {
+            session.sessionPreset = AVCaptureSessionPresetPhoto
+        }
+        //Select a video device make an input
+        var device : AVCaptureDevice? = nil
+        var desiredPosition = AVCaptureDevicePosition.Back
+        //find the back facing camera
+        var d = AVCaptureDevice()
+        var devicesWithMediaType = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
+        // find the front facing camera
+        for d in devicesWithMediaType{
+            if (d.position == desiredPosition){
+                device = d as AVCaptureDevice
+                break
+            }
+        }
+        if ( device == nil){
+            device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        }
+        //get the input device
+        var deviceInput = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error)
+        
+        if (error == nil){
+            if( session.canAddInput(deviceInput as AVCaptureInput)){
+                session.addInput(deviceInput as AVCaptureInput)
+            }
+    
+            cameraSession = AVCaptureVideoPreviewLayer(session: session)
+            cameraSession.backgroundColor = UIColor.blackColor().CGColor
+            cameraSession.videoGravity = AVLayerVideoGravityResizeAspect
+            var rootLayer : CALayer =  backgroundImage.layer
+            rootLayer.masksToBounds = true
+            rootLayer.frame = rootLayer.bounds
+            rootLayer.addSublayer(cameraSession)
+            session.startRunning()
+    
+        }
+        
+        if (error != nil){
+            var alertView : UIAlertView = UIAlertView(title: "Failed with error", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
+            alertView.show()
+        }
+    }
+        
     /*
     Responsible for face detection.
     @author Towhid Absar <mac9908@rit.edu>
@@ -176,6 +236,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         }
         var drawedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(drawedImage, nil, nil, nil)
         
         mainView.addSubview(self.crosshair)
         mainView.addSubview(backgroundImage)
