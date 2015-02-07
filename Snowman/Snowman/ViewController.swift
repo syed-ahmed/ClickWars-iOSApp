@@ -21,8 +21,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     let imagePicker = UIImagePickerController()
-    @IBOutlet var fbLoginView : FBLoginView! //creating the outlet
+    //@IBOutlet var fbLoginView : FBLoginView! //creating the outlet
     
+    @IBOutlet weak var fbLoginView: FBLoginView!
     @IBOutlet var mainView: UIView!
     //@IBOutlet weak var crosshair: UIImageView!
     //@IBOutlet weak var backgroundImage: UIImageView!

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c2E-MI-n4R">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,14 +17,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
-                                <rect key="frame" x="207" y="480" width="200" height="100"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufo-Be-bKK">
-                                <rect key="frame" x="230" y="285" width="141" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufo-Be-bKK">
+                                <rect key="frame" x="0.0" y="85" width="200" height="112"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="141" id="tLk-Ta-f5h"/>
+                                    <constraint firstAttribute="height" constant="112" id="xhH-kw-tb0"/>
                                 </constraints>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -32,21 +29,24 @@
                                     <segue destination="bKY-f2-878" kind="show" id="oRO-me-LZA"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iro-fa-wYo" customClass="FBLoginView">
+                                <rect key="frame" x="16" y="318" width="200" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="iro-fa-wYo" secondAttribute="trailing" constant="193" id="4xu-XD-rsZ"/>
-                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="FUn-Pq-FdT"/>
-                            <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="207" id="Ypm-tc-lph"/>
-                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="b48-oZ-799"/>
-                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="480" id="ntz-Bs-AZS"/>
-                            <constraint firstAttribute="bottom" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="20" symbolic="YES" id="zFK-KK-eJ9"/>
+                            <constraint firstAttribute="trailing" secondItem="iro-fa-wYo" secondAttribute="trailing" constant="384" id="H1S-pR-gk6"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" constant="318" id="LZ7-v7-761"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="iro-fa-wYo" secondAttribute="bottom" constant="214" id="TYp-CH-qFz"/>
+                            <constraint firstItem="iro-fa-wYo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="V73-ZA-4qt"/>
+                            <constraint firstItem="Ufo-Be-bKK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="92" id="sYW-a0-wtg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WYz-un-geK"/>
                     <connections>
                         <outlet property="btnStart" destination="Ufo-Be-bKK" id="trv-4A-EWa"/>
-                        <outlet property="fbLoginView" destination="iro-fa-wYo" id="h1Z-uM-UCL"/>
+                        <outlet property="fbLoginView" destination="iro-fa-wYo" id="UXT-KY-pBi"/>
                         <outlet property="mainView" destination="kh9-bI-dsS" id="xSA-aC-ckQ"/>
                     </connections>
                 </viewController>
