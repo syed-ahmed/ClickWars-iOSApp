@@ -1,23 +1,20 @@
 //
 //  Locksmith.swift
+//  Locksmith-Demo
 //
 //  Created by Matthew Palmer on 26/10/2014.
 //  Copyright (c) 2014 Colour Coding. All rights reserved.
 //
 
 import UIKit
-import Security
 
 public let LocksmithErrorDomain = "com.locksmith.error"
-public let LocksmithDefaultService = NSBundle.mainBundle().infoDictionary![kCFBundleIdentifierKey] as String
 
-
-public class Locksmith: NSObject {
+class Locksmith: NSObject {
     // MARK: Perform request
-    public class func performRequest(request: LocksmithRequest) -> (NSDictionary?, NSError?) {
+    class func performRequest(request: LocksmithRequest) -> (NSDictionary?, NSError?) {
         let type = request.type
-        //var result: Unmanaged<AnyObject>? = nil
-        var result: AnyObject?
+        var result: Unmanaged<AnyObject>? = nil
         var status: OSStatus?
         
         var parsedRequest: NSMutableDictionary = parseRequest(request)
@@ -26,13 +23,13 @@ public class Locksmith: NSObject {
         
         switch type {
         case .Create:
-            status = withUnsafeMutablePointer(&result) { SecItemAdd(requestReference, UnsafeMutablePointer($0)) }
+            status = SecItemAdd(requestReference, &result)
         case .Read:
-            status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(requestReference, UnsafeMutablePointer($0)) }
+            status = SecItemCopyMatching(requestReference, &result)
         case .Delete:
             status = SecItemDelete(requestReference)
         case .Update:
-            status =  Locksmith.performUpdate(requestReference, result: &result)
+            status = Locksmith.performUpdate(requestReference, result: &result)
         default:
             status = nil
         }
@@ -44,8 +41,7 @@ public class Locksmith: NSObject {
             
             if result != nil {
                 if type == .Read && status == errSecSuccess {
-                    
-                    if let data = result as? NSData {
+                    if let data = result?.takeUnretainedValue() as? NSData {
                         // Convert the retrieved data to a dictionary
                         resultsDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? NSDictionary
                     }
@@ -56,17 +52,18 @@ public class Locksmith: NSObject {
         } else {
             let code = LocksmithErrorCode.TypeNotFound.rawValue
             let message = internalErrorMessage(forCode: code)
+            
+            
             return (nil, NSError(domain: LocksmithErrorDomain, code: code, userInfo: ["message": message]))
         }
     }
     
-    private class func performUpdate(request: CFDictionaryRef, inout result: AnyObject?) -> OSStatus {
+    private class func performUpdate(request: CFDictionaryRef, result: UnsafeMutablePointer<Unmanaged<AnyObject>?>) -> OSStatus {
         // We perform updates to the keychain by first deleting the matching object, then writing to it with the new value.
         SecItemDelete(request)
-        // Even if the delete request failed (e.g. if the item didn't exist before), still try to save the new item.
+        // Even if the delete request failed (e.g. if the item didn't exist before), still try to save the new item. 
         // If we get an error saving, we'll tell the user about it.
-        
-        var status: OSStatus = withUnsafeMutablePointer(&result) { SecItemAdd(request, UnsafeMutablePointer($0)) }
+        var status: OSStatus = SecItemAdd(request, result)
         return status
     }
     
@@ -87,13 +84,11 @@ public class Locksmith: NSObject {
     enum LocksmithErrorCode: Int {
         case RequestNotSet = 1
         case TypeNotFound = 2
-        case UnableToClear = 3
     }
     
     enum LocksmithErrorMessage: String {
         case RequestNotSet = "keychainRequest was not set."
         case TypeNotFound = "The type of request given was undefined."
-        case UnableToClear = "Unable to clear the keychain"
     }
     
     class func keychainError(forCode statusCode: Int) -> NSError? {
@@ -101,7 +96,7 @@ public class Locksmith: NSObject {
         
         if statusCode != Int(errSecSuccess) {
             let message = errorMessage(statusCode)
-            //            println("Keychain request failed. Code: \(statusCode). Message: \(message)")
+            println("Keychain request failed. Code: \(statusCode). Message: \(message)")
             error = NSError(domain: LocksmithErrorDomain, code: statusCode, userInfo: ["message": message])
         }
         
@@ -114,8 +109,6 @@ public class Locksmith: NSObject {
         switch statusCode {
         case LocksmithErrorCode.RequestNotSet.rawValue:
             return LocksmithErrorMessage.RequestNotSet.rawValue
-        case LocksmithErrorCode.UnableToClear.rawValue:
-            return LocksmithErrorMessage.UnableToClear.rawValue
         default:
             return "Error message for code \(statusCode) not set"
         }
@@ -124,19 +117,12 @@ public class Locksmith: NSObject {
     private class func parseRequest(request: LocksmithRequest) -> NSMutableDictionary {
         var parsedRequest = NSMutableDictionary()
         
-        var options = [String: AnyObject?]()
-        options[String(kSecAttrAccount)] = request.userAccount
-        options[String(kSecAttrAccessGroup)] = request.group
-        options[String(kSecAttrService)] = request.service
-        options[String(kSecAttrSynchronizable)] = request.synchronizable
-        options[String(kSecClass)] = securityCode(request.securityClass)
-        if let accessibleMode = request.accessible {
-            options[String(kSecAttrAccessible)] = accessible(accessibleMode)
-        }
+        parsedRequest.setOptional(request.userAccount, forKey: String(kSecAttrAccount))
+        parsedRequest.setOptional(request.group, forKey: String(kSecAttrAccessGroup))
+        parsedRequest.setOptional(request.service, forKey: String(kSecAttrService))
         
-        for (key, option) in options {
-            parsedRequest.setOptional(option, forKey: key)
-        }
+        // parsedRequest.setOptional(Locksmith.securityCode(request.securityClass), forKey: String(kSecClass))
+        parsedRequest.setOptional(kSecClassGenericPassword, forKey: String(kSecClass))
         
         switch request.type {
         case .Create:
@@ -211,109 +197,32 @@ public class Locksmith: NSObject {
         switch securityClass {
         case .GenericPassword:
             return kSecClassGenericPassword
-        case .Certificate:
-            return kSecClassCertificate
-        case .Identity:
-            return kSecClassIdentity
-        case .InternetPassword:
-            return kSecClassInternetPassword
-        case .Key:
-            return kSecClassKey
         default:
             return kSecClassGenericPassword
-        }
-    }
-    
-    private class func accessible(accessible: Accessible) -> CFStringRef {
-        switch accessible {
-        case .WhenUnlock:
-            return kSecAttrAccessibleWhenUnlocked
-        case .AfterFirstUnlock:
-            return kSecAttrAccessibleAfterFirstUnlock
-        case .Always:
-            return kSecAttrAccessibleAlways
-        case .WhenPasscodeSetThisDeviceOnly:
-            return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
-        case .WhenUnlockedThisDeviceOnly:
-            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-        case .AfterFirstUnlockThisDeviceOnly:
-            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-        case .AlwaysThisDeviceOnly:
-            return kSecAttrAccessibleAlwaysThisDeviceOnly
         }
     }
 }
 
 // MARK: Convenient Class Methods
 extension Locksmith {
-    public class func saveData(data: Dictionary<String, String>, forUserAccount userAccount: String, inService service: String = LocksmithDefaultService) -> NSError? {
-        let saveRequest = LocksmithRequest(userAccount: userAccount, requestType: .Create, data: data, service: service)
-        let (dictionary, error) = Locksmith.performRequest(saveRequest)
-        return error
+    class func saveData(data: Dictionary<String, String>, forKey key: String, inService service: String, forUserAccount userAccount: String) -> (NSDictionary?, NSError?) {
+        let saveRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key, requestType: .Create, data: data)
+        return Locksmith.performRequest(saveRequest)
     }
     
-    public class func loadDataForUserAccount(userAccount: String, inService service: String = LocksmithDefaultService) -> (NSDictionary?, NSError?) {
-        let readRequest = LocksmithRequest(userAccount: userAccount, service: service)
+    class func loadData(forKey key: String, inService service: String, forUserAccount userAccount: String) -> (NSDictionary?, NSError?) {
+        let readRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key)
         return Locksmith.performRequest(readRequest)
     }
     
-    public class func deleteDataForUserAccount(userAccount: String, inService service: String = LocksmithDefaultService) -> NSError? {
-        let deleteRequest = LocksmithRequest(userAccount: userAccount, requestType: .Delete, service: service)
-        let (dictionary, error) = Locksmith.performRequest(deleteRequest)
-        return error
+    class func deleteData(forKey key: String, inService service: String, forUserAccount userAccount: String) -> (NSDictionary?, NSError?) {
+        let deleteRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key, requestType: .Delete)
+        return Locksmith.performRequest(deleteRequest)
     }
     
-    public class func updateData(data: Dictionary<String, String>, forUserAccount userAccount: String, inService service: String = LocksmithDefaultService) -> NSError? {
-        let updateRequest = LocksmithRequest(userAccount: userAccount, requestType: .Update, data: data, service: service)
-        let (dictionary, error) = Locksmith.performRequest(updateRequest)
-        return error
-    }
-    
-    public class func clearKeychain() -> NSError? {
-        // Delete all of the keychain data of the given class
-        func deleteDataForSecClass(secClass: CFTypeRef) -> NSError? {
-            var request = NSMutableDictionary()
-            request.setObject(secClass, forKey: String(kSecClass))
-            
-            var status: OSStatus? = SecItemDelete(request as CFDictionaryRef)
-            
-            if let status = status {
-                var statusCode = Int(status)
-                return Locksmith.keychainError(forCode: statusCode)
-            }
-            
-            return nil
-        }
-        
-        // For each of the sec class types, delete all of the saved items of that type
-        let classes = [kSecClassGenericPassword, kSecClassInternetPassword, kSecClassCertificate, kSecClassKey, kSecClassIdentity]
-        
-        let errors: [NSError?] = classes.map({
-            return deleteDataForSecClass($0)
-        })
-        
-        // Remove those that were successful, or failed with an acceptable error code
-        let filtered = errors.filter({
-            if let error = $0 {
-                // There was an error
-                // If the error indicates that there was no item with that sec class, that's fine.
-                // Some of the sec classes will have nothing in them in most cases.
-                return error.code != Int(errSecItemNotFound) ? true : false
-            }
-            
-            // There was no error
-            return false
-        })
-        
-        // If the filtered array is empty, then everything went OK
-        if filtered.isEmpty {
-            return nil
-        }
-        
-        // At least one of the delete operations failed
-        let code = LocksmithErrorCode.UnableToClear.rawValue
-        let message = internalErrorMessage(forCode: code)
-        return NSError(domain: LocksmithErrorDomain, code: code, userInfo: ["message": message])
+    class func updateData(data: Dictionary<String, String>, forKey key: String, inService service: String, forUserAccount userAccount: String) -> (NSDictionary?, NSError?) {
+        let updateRequest = LocksmithRequest(service: service, userAccount: userAccount, key: key, requestType: .Update, data: data)
+        return Locksmith.performRequest(updateRequest)
     }
 }
 

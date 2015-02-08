@@ -32,9 +32,9 @@
 		A81D4F661A86825000CCC37A /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81D4F611A86825000CCC37A /* ParseCrashReporting.framework */; };
 		A81D4F671A86825000CCC37A /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81D4F621A86825000CCC37A /* ParseFacebookUtils.framework */; };
 		A81D4F681A86825000CCC37A /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81D4F631A86825000CCC37A /* ParseUI.framework */; };
-		A81D4F6C1A86994D00CCC37A /* LocksmithRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D4F6B1A86994D00CCC37A /* LocksmithRequest.swift */; };
-		A81D4F6E1A86998000CCC37A /* Locksmith.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D4F6D1A86998000CCC37A /* Locksmith.swift */; };
 		A81D4F701A869A9300CCC37A /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D4F6F1A869A9300CCC37A /* loginViewController.swift */; };
+		A81D4F751A86F24500CCC37A /* Locksmith.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D4F731A86F24500CCC37A /* Locksmith.swift */; };
+		A81D4F761A86F24500CCC37A /* LocksmithRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81D4F741A86F24500CCC37A /* LocksmithRequest.swift */; };
 		A8BE15FE1A83772200561A2E /* crosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = A8BE15FD1A83772200561A2E /* crosshair.png */; };
 		A8BE16001A85D8CD00561A2E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE15FF1A85D8CD00561A2E /* CameraController.swift */; };
 		A8BE16021A85F73E00561A2E /* FaceDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BE16011A85F73E00561A2E /* FaceDetection.swift */; };
@@ -83,9 +83,9 @@
 		A81D4F611A86825000CCC37A /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseCrashReporting.framework; sourceTree = "<group>"; };
 		A81D4F621A86825000CCC37A /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		A81D4F631A86825000CCC37A /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
-		A81D4F6B1A86994D00CCC37A /* LocksmithRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocksmithRequest.swift; path = ../LocksmithRequest.swift; sourceTree = "<group>"; };
-		A81D4F6D1A86998000CCC37A /* Locksmith.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Locksmith.swift; path = ../Locksmith.swift; sourceTree = "<group>"; };
 		A81D4F6F1A869A9300CCC37A /* loginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		A81D4F731A86F24500CCC37A /* Locksmith.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locksmith.swift; sourceTree = "<group>"; };
+		A81D4F741A86F24500CCC37A /* LocksmithRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocksmithRequest.swift; sourceTree = "<group>"; };
 		A8BE15FD1A83772200561A2E /* crosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crosshair.png; path = ../crosshair.png; sourceTree = "<group>"; };
 		A8BE15FF1A85D8CD00561A2E /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A8BE16011A85F73E00561A2E /* FaceDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetection.swift; sourceTree = "<group>"; };
@@ -166,8 +166,6 @@
 		A8F420FB1A83350800BDD132 /* Snowman */ = {
 			isa = PBXGroup;
 			children = (
-				A81D4F6D1A86998000CCC37A /* Locksmith.swift */,
-				A81D4F6B1A86994D00CCC37A /* LocksmithRequest.swift */,
 				A81D4F541A86651900CCC37A /* Snowman-Bridging-Header.h */,
 				A8F420FE1A83350800BDD132 /* AppDelegate.swift */,
 				A8F421001A83350800BDD132 /* ViewController.swift */,
@@ -177,6 +175,8 @@
 				A8BE16011A85F73E00561A2E /* FaceDetection.swift */,
 				A8F421051A83350800BDD132 /* Images.xcassets */,
 				A8F421071A83350800BDD132 /* LaunchScreen.xib */,
+				A81D4F741A86F24500CCC37A /* LocksmithRequest.swift */,
+				A81D4F731A86F24500CCC37A /* Locksmith.swift */,
 				A8F420FC1A83350800BDD132 /* Supporting Files */,
 			);
 			path = Snowman;
@@ -341,14 +341,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A81D4F761A86F24500CCC37A /* LocksmithRequest.swift in Sources */,
 				A8BE16021A85F73E00561A2E /* FaceDetection.swift in Sources */,
 				A8BE16001A85D8CD00561A2E /* CameraController.swift in Sources */,
 				A8F421011A83350800BDD132 /* ViewController.swift in Sources */,
 				A8F420FF1A83350800BDD132 /* AppDelegate.swift in Sources */,
 				A81D4F701A869A9300CCC37A /* loginViewController.swift in Sources */,
-				A81D4F6C1A86994D00CCC37A /* LocksmithRequest.swift in Sources */,
 				A81D4F561A86651A00CCC37A /* Snowman-Bridging-Header.m in Sources */,
-				A81D4F6E1A86998000CCC37A /* Locksmith.swift in Sources */,
+				A81D4F751A86F24500CCC37A /* Locksmith.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
